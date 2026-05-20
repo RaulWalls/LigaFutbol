@@ -1,5 +1,6 @@
 package src.view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/resources/logo.png").getImage());
 
         equipoPanel     = new EquipoPanel();
         jugadorPanel    = new JugadorPanel();
