@@ -1,10 +1,13 @@
 package src.view;
 
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -26,11 +29,27 @@ public class DialogoEquipo extends JDialog {
     public DialogoEquipo(Frame parent, Equipo equipoAEditar) {
         super(parent, equipoAEditar == null ? "Nuevo Equipo" : "Editar Equipo", true);
 
-        setSize(400, 300);
+        setSize(400, 400);
         setLocationRelativeTo(parent);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Ícono ilustrativo del equipo, centrado en la parte superior
+        java.net.URL imgUrl = getClass().getClassLoader().getResource("src/resources/equipo.png");
+        JLabel iconoLabel = new JLabel();
+        if (imgUrl != null) {
+            Image img = new ImageIcon(imgUrl).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            iconoLabel.setIcon(new ImageIcon(img));
+        }
+        iconoLabel.setPreferredSize(new Dimension(80, 80));
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.NONE;
+        add(iconoLabel, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         txtNombre          = new JTextField(20);
@@ -43,7 +62,7 @@ public class DialogoEquipo extends JDialog {
         JTextField[] campos = {txtNombre, txtSede, txtNombreEstadio, txtDirectorTecnico, txtDueno};
 
         for (int i = 0; i < etiquetas.length; i++) {
-            gbc.gridx = 0; gbc.gridy = i;
+            gbc.gridx = 0; gbc.gridy = i + 1;
             add(new JLabel(etiquetas[i]), gbc);
             gbc.gridx = 1;
             add(campos[i], gbc);
@@ -52,7 +71,7 @@ public class DialogoEquipo extends JDialog {
         JButton btnAceptar   = new JButton("Aceptar");
         JButton btnCancelar  = new JButton("Cancelar");
 
-        gbc.gridx = 0; gbc.gridy = etiquetas.length;
+        gbc.gridx = 0; gbc.gridy = etiquetas.length + 1;
         add(btnAceptar, gbc);
         gbc.gridx = 1;
         add(btnCancelar, gbc);
