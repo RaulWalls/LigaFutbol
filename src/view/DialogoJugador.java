@@ -1,14 +1,17 @@
 package src.view;
 
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -34,11 +37,27 @@ public class DialogoJugador extends JDialog {
     public DialogoJugador(Frame parent, Jugador jugadorAEditar, List<Equipo> equipos) {
         super(parent, jugadorAEditar == null ? "Nuevo Jugador" : "Editar Jugador", true);
 
-        setSize(420, 320);
+        setSize(520, 420);
         setLocationRelativeTo(parent);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Ícono ilustrativo del jugador, centrado en la parte superior
+        java.net.URL imgUrl = getClass().getClassLoader().getResource("src/resources/jugador.png");
+        JLabel iconoLabel = new JLabel();
+        if (imgUrl != null) {
+            Image img = new ImageIcon(imgUrl).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+            iconoLabel.setIcon(new ImageIcon(img));
+        }
+        iconoLabel.setPreferredSize(new Dimension(80, 80));
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.NONE;
+        add(iconoLabel, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         txtNombre          = new JTextField(20);
@@ -53,7 +72,7 @@ public class DialogoJugador extends JDialog {
         Object[]      controles = {txtNombre, txtDireccion, txtLugarNacimiento, txtFechaNacimiento, comboEquipo};
 
         for (int i = 0; i < etiquetas.length; i++) {
-            gbc.gridx = 0; gbc.gridy = i;
+            gbc.gridx = 0; gbc.gridy = i + 1;
             add(new JLabel(etiquetas[i]), gbc);
             gbc.gridx = 1;
             add((java.awt.Component) controles[i], gbc);
@@ -62,7 +81,7 @@ public class DialogoJugador extends JDialog {
         JButton btnAceptar  = new JButton("Aceptar");
         JButton btnCancelar = new JButton("Cancelar");
 
-        gbc.gridx = 0; gbc.gridy = etiquetas.length;
+        gbc.gridx = 0; gbc.gridy = etiquetas.length + 1;
         add(btnAceptar, gbc);
         gbc.gridx = 1;
         add(btnCancelar, gbc);

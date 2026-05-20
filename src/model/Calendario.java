@@ -19,6 +19,8 @@ public class Calendario implements Serializable {
         this.generado = false;
     }
 
+    public static final String BYE_ID = "equipo-bye-descanso";
+
     public void generarCalendario(List<Equipo> equipos) throws PartidoInvalidoException {
         if (equipos == null || equipos.size() < 2) {
             throw new PartidoInvalidoException("Se necesitan al menos 2 equipos para generar el calendario.");
@@ -28,7 +30,7 @@ public class Calendario implements Serializable {
 
         List<Equipo> lista = new ArrayList<>(equipos);
 
-        // Si N es impar, agregar equipo predeterminado para emparejar jornadas
+        // Si N es impar, agregar equipo bye con ID fijo para que siempre sea reconocible
         if (lista.size() % 2 != 0) {
             lista.add(new Equipo(
                                     "LOBOS DE LA FCC", 

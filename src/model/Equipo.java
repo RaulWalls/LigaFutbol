@@ -22,6 +22,15 @@ public class Equipo implements Serializable {
         this.dueno = dueno;
     }
 
+    Equipo(String id, String nombre, String sede, String nombreEstadio, String directorTecnico, String dueno) {
+        this.id = id;
+        this.nombre = nombre;
+        this.sede = sede;
+        this.nombreEstadio = nombreEstadio;
+        this.directorTecnico = directorTecnico;
+        this.dueno = dueno;
+    }
+
 
     // Getters 
 

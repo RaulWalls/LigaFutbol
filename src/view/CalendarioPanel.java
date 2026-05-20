@@ -18,6 +18,8 @@ import src.model.Calendario;
 import src.model.Equipo;
 import src.model.Partido;
 
+
+
 public class CalendarioPanel extends JPanel {
 
     private JTable            tabla;
@@ -92,9 +94,23 @@ public class CalendarioPanel extends JPanel {
     }
 
     private String resolverNombre(String equipoId, List<Equipo> equipos) {
+        if (Calendario.BYE_ID.equals(equipoId)) 
+            return new Equipo(
+                                "LOBOS DE LA FCC", 
+                                "Puebla", 
+                                "Estadio BUAP", 
+                                "El Chanfle", 
+                                "BUAP FCC"
+                            ).getNombre();
         return equipos.stream()
             .filter(e -> e.getId().equals(equipoId))
             .map(Equipo::getNombre)
-            .findFirst().orElse(equipoId);
+            .findFirst().orElse(new Equipo(
+                                    "LOBOS DE LA FCC", 
+                                    "Puebla", 
+                                    "Estadio BUAP", 
+                                    "El Chanfle", 
+                                    "BUAP FCC"
+                                ).getNombre());
     }
 }
