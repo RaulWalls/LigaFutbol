@@ -1,29 +1,41 @@
 package src.view;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.List;
+import java.awt.Dimension;                              // Importamos Dimension para establecer el tamaño preferido de componentes visuales.
+import java.awt.Frame;                                  // Importamos Frame para establecer el padre del diálogo, lo que permite centrarlo correctamente en la pantalla.
+import java.awt.GridBagConstraints;                     // Importamos GridBagConstraints para organizar los componentes del diálogo utilizando un layout flexible y adaptable.
+import java.awt.GridBagLayout;                          // Importamos GridBagLayout para organizar los componentes del diálogo en una cuadrícula.
+import java.awt.Image;                                  // Importamos Image para manejar la imagen del ícono del jugador en el diálogo.
+import java.awt.Insets;                                 // Importamos Insets para establecer los márgenes entre los componentes del diálogo, mejorando la apariencia visual.
+import java.time.LocalDate;                             // Importamos LocalDate para manejar las fechas de nacimiento de los jugadores y calcular su edad.
+import java.time.format.DateTimeFormatter;              // Importamos DateTimeFormatter para definir el formato de fecha.
+import java.time.format.DateTimeParseException;         // Importamos DateTimeParseException para manejar errores de formato.
+import java.util.List;                                  // Importamos List para manejar la lista de equipos disponibles al seleccionar el equipo al que pertenece un jugador.
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.ImageIcon;                           // Importamos ImageIcon para cargar y mostrar la imagen del ícono del jugador en el diálogo.
+import javax.swing.JButton;                             // Importamos JButton para los botones de aceptar y cancelar en el diálogo.
+import javax.swing.JComboBox;                           // Importamos JComboBox para permitir al usuario seleccionar el equipo al que pertenece el jugador desde una lista desplegable.
+import javax.swing.JDialog;                             // Importamos JDialog para crear un diálogo modal que permita al usuario ingresar los datos de un jugador.
+import javax.swing.JLabel;                              // Importamos JLabel para las etiquetas de los campos de entrada en el diálogo.
+import javax.swing.JOptionPane;                         // Importamos JOptionPane para mostrar mensajes de validación y error al usuario en el diálogo.
+import javax.swing.JTextField;                          // Importamos JTextField para los campos de entrada de texto en el diálogo.
 
 import src.model.Equipo;
 import src.model.Jugador;
 
 public class DialogoJugador extends JDialog {
 
+
+    /**
+     * Diálogo para agregar o editar un jugador en la liga. Este diálogo permite al usuario ingresar los datos de un jugador,
+     * como el nombre, la dirección, la fecha de nacimiento, el lugar de nacimiento y el equipo al que pertenece. El diálogo se muestra de forma modal, bloqueando la interacción con la ventana principal hasta que el usuario confirme o cancele la acción. La clase se encarga de organizar
+     * los componentes visuales del diálogo, validar los datos ingresados por el usuario y devolver un objeto Jugador con los datos ingresados si el usuario confirma la acción, o null si el usuario cancela.
+     * Atributos:
+     * - txtNombre: Campo de texto para ingresar el nombre del jugador.
+     * - txtDireccion: Campo de texto para ingresar la dirección del jugador.
+     * - txtLugarNacimiento: Campo de texto para ingresar el lugar de nacimiento del jugador.
+     * - txtFechaNacimiento: Campo de texto para ingresar la fecha de nacimiento del jugador, con un formato específico (dd/MM/yyyy).
+     * - comboEquipo: ComboBox para seleccionar el equipo al que pertenece el jugador, mostrando una lista de los equipos disponibles en la liga.
+     */
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private JTextField          txtNombre;
@@ -34,6 +46,7 @@ public class DialogoJugador extends JDialog {
 
     private Jugador resultado = null;
 
+    // Constructor para inicializar el diálogo, organizar los componentes visuales y configurar los listeners de los botones.
     public DialogoJugador(Frame parent, Jugador jugadorAEditar, List<Equipo> equipos) {
         super(parent, jugadorAEditar == null ? "Nuevo Jugador" : "Editar Jugador", true);
 
@@ -60,6 +73,7 @@ public class DialogoJugador extends JDialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        // Campos de entrada para los datos del jugador, organizados en una cuadrícula con etiquetas a la izquierda y campos de texto a la derecha.
         txtNombre          = new JTextField(20);
         txtDireccion       = new JTextField(20);
         txtLugarNacimiento = new JTextField(20);
@@ -71,6 +85,7 @@ public class DialogoJugador extends JDialog {
         String[]      etiquetas = {"Nombre:", "Dirección:", "Lugar de nacimiento:", "Fecha de nacimiento:", "Equipo:"};
         Object[]      controles = {txtNombre, txtDireccion, txtLugarNacimiento, txtFechaNacimiento, comboEquipo};
 
+        // Agrega las etiquetas y los campos de texto al diálogo utilizando GridBagLayout para organizar su disposición.
         for (int i = 0; i < etiquetas.length; i++) {
             gbc.gridx = 0; gbc.gridy = i + 1;
             add(new JLabel(etiquetas[i]), gbc);
@@ -78,6 +93,7 @@ public class DialogoJugador extends JDialog {
             add((java.awt.Component) controles[i], gbc);
         }
 
+        // Botones de aceptar y cancelar, organizados en la parte inferior del diálogo.
         JButton btnAceptar  = new JButton("Aceptar");
         JButton btnCancelar = new JButton("Cancelar");
 
@@ -108,6 +124,7 @@ public class DialogoJugador extends JDialog {
         btnCancelar.addActionListener(e -> dispose());
     }
 
+    // Precarga los datos de un jugador en los campos de texto del diálogo para facilitar la edición. 
     private void precargarDatos(Jugador jugador, List<Equipo> equipos) {
         txtNombre.setText(jugador.getNombre());
         txtDireccion.setText(jugador.getDireccion());
@@ -121,6 +138,7 @@ public class DialogoJugador extends JDialog {
         }
     }
 
+    // Método privado para validar que todos los campos de texto del diálogo estén llenos antes de aceptar la entrada del usuario.
     private boolean validarCampos() {
         if (txtNombre.getText().trim().isEmpty() ||
             txtDireccion.getText().trim().isEmpty() ||
@@ -142,6 +160,7 @@ public class DialogoJugador extends JDialog {
         return true;
     }
 
+    // Método público para mostrar el diálogo y obtener el resultado ingresado por el usuario.
     public Jugador mostrarYObtenerResultado() {
         setVisible(true);
         return resultado;
