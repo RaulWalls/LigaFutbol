@@ -8,6 +8,7 @@ import src.view.MainFrame;
 
 public class Main {
 
+    // Clase principal, donde se inicializan el modelo, la vista y los controladores.
     public static void main(String[] args) {
 
         // 1. Modelo — carga datos desde archivos si existen
