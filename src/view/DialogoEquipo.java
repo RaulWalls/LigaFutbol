@@ -52,7 +52,7 @@ public class DialogoEquipo extends JDialog {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Ícono ilustrativo del equipo, centrado en la parte superior
+        // Icono ilustrativo del equipo, centrado en la parte superior
         java.net.URL imgUrl = getClass().getClassLoader().getResource("src/resources/equipo.png");
         JLabel iconoLabel = new JLabel();
         if (imgUrl != null) {

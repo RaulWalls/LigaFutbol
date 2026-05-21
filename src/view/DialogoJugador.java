@@ -57,7 +57,7 @@ public class DialogoJugador extends JDialog {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Ícono ilustrativo del jugador, centrado en la parte superior
+        // Icono ilustrativo del jugador, centrado en la parte superior
         java.net.URL imgUrl = getClass().getClassLoader().getResource("src/resources/jugador.png");
         JLabel iconoLabel = new JLabel();
         if (imgUrl != null) {
